@@ -52,6 +52,10 @@
            #js [(cm-clj/syntax live-grammar/parser)
                 (.slice editor-extensions-to-load 1)]
            editor-extensions-to-load))
+       ;; enable formatting by Tab for extended input mode
+       (.of view/keymap (if (= extension-mode :extended)
+                          (.filter cm-clj/complete-keymap #(= "Tab" (aget % "key")))
+                          #js []))
        #_(.of view/keymap cm-clj/complete-keymap)
        #_(.of view/keymap historyKeymap)])))
 
